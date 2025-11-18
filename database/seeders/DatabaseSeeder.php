@@ -21,5 +21,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        $this->call([
+    WargaSeeder::class,   // Harus dijalankan dulu
+    PersilSeeder::class,  // Baru PersilSeeder
+    DokumenSeeder::class, // Baru DokumenSeeder
+]);
+
     }
+
 }
+
+

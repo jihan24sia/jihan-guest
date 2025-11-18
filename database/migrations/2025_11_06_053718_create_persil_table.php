@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('rw')->unique();
 
             $table->timestamps();
-
             $table->foreign('pemilik_warga_id')
                 ->references('warga_id')
                 ->on('warga')
