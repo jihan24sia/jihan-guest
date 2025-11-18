@@ -17,12 +17,7 @@ class DokumenSeeder extends Seeder
                 'nomor' => '123/SHM/2023',
                 'keterangan' => 'Sertifikat Hak Milik atas nama pemilik pertama.'
             ],
-            [
-                'persil_id' => 1,
-                'jenis_dokumen' => 'PBB',
-                'nomor' => 'PBB-2024-001',
-                'keterangan' => 'PBB tahun 2024 sudah dibayar.'
-            ],
+           
             [
                 'persil_id' => 2,
                 'jenis_dokumen' => 'IMB',
