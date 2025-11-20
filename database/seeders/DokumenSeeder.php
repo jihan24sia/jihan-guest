@@ -3,37 +3,31 @@
 namespace Database\Seeders;
 
 use App\Models\Dokumen;
+use App\Models\Persil;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Factory as Faker;
 
 class DokumenSeeder extends Seeder
 {
     public function run(): void
     {
-        $data = [
-            [
-                'persil_id' => 1,
-                'jenis_dokumen' => 'SHM',
-                'nomor' => '123/SHM/2023',
-                'keterangan' => 'Sertifikat Hak Milik atas nama pemilik pertama.'
-            ],
-           
-            [
-                'persil_id' => 2,
-                'jenis_dokumen' => 'IMB',
-                'nomor' => 'IMB-00921',
-                'keterangan' => 'Izin Mendirikan Bangunan untuk gudang.'
-            ],
-            [
-                'persil_id' => 3,
-                'jenis_dokumen' => 'Surat Kepemilikan',
-                'nomor' => 'SK-8872',
-                'keterangan' => 'Dokumen kepemilikan toko.'
-            ]
-        ];
+        $faker = Faker::create('id_ID');
 
-        foreach ($data as $d) {
-            Dokumen::create($d);
+        // Jenis dokumen contoh
+        $jenisList = ['SHM', 'IMB', 'Surat Kepemilikan', 'HGB', 'PBB', 'SPPT'];
+
+        // Ambil semua ID persil
+        $persilIds = Persil::pluck('persil_id')->toArray();
+
+        // Generate 1000 dokumen
+        for ($i = 1; $i <= 1000; $i++) {
+
+            Dokumen::create([
+                'persil_id'      => $faker->randomElement($persilIds),
+                'jenis_dokumen'  => $faker->randomElement($jenisList),
+                'nomor'          => strtoupper($faker->bothify('DOC-####')),
+                'keterangan'     => $faker->sentence(10),
+            ]);
         }
     }
 }

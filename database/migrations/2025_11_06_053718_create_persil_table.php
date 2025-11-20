@@ -15,18 +15,20 @@ return new class extends Migration
             $table->id('persil_id');
             $table->string('kode_persil')->unique();
             $table->unsignedBigInteger('pemilik_warga_id');
-            $table->decimal('luas_m2', 10, 2)->unique();
+            $table->decimal('luas_m2', 10, 2); // tidak unique
             $table->string('penggunaan');
             $table->string('alamat_lahan');
-            $table->string('rt')->unique();
-            $table->string('rw')->unique();
+            $table->string('rt'); // tidak unique
+            $table->string('rw'); // tidak unique
 
             $table->timestamps();
+
             $table->foreign('pemilik_warga_id')
                 ->references('warga_id')
                 ->on('warga')
                 ->onDelete('cascade');
         });
+
     }
 
     /**

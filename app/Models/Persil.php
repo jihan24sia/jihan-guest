@@ -11,7 +11,7 @@ class Persil extends Model
 
     protected $table = 'persil';
     protected $primaryKey = 'persil_id';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'kode_persil',
@@ -24,7 +24,7 @@ class Persil extends Model
     ];
     public function warga()
 {
-    return $this->belongsTo(Warga::class, 'warga_id');
+    return $this->belongsTo(Warga::class, 'pemilik_warga_id');
 }
 
 }

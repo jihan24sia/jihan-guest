@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Warga;
 use App\Models\Persil;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 
 class PersilController extends Controller
@@ -26,15 +25,15 @@ class PersilController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode_persil' => 'required|unique:persil,kode_persil',
+            'kode_persil'      => 'required|unique:persil,kode_persil',
             'pemilik_warga_id' => 'required',
-            'luas_m2' => 'required|numeric',
-            'penggunaan' => 'required',
-            'alamat_lahan' => 'required',
-            'rt' => 'required',
-            'rw' => 'required',
+            'luas_m2'          => 'required|numeric',
+            'penggunaan'       => 'required',
+            'alamat_lahan'     => 'required',
+            'rt'               => 'required',
+            'rw'               => 'required',
         ]);
-;
+        Persil::create($validated);
 
         return redirect()->route('persil.index')
             ->with('success', 'Data persil berhasil disimpan!');
@@ -44,7 +43,7 @@ class PersilController extends Controller
     public function edit($id)
     {
         $persil = Persil::findOrFail($id);
-        $warga = Warga::all();
+        $warga  = Warga::all();
         return view('pages.persil.edit', compact('persil', 'warga'));
     }
 
@@ -54,12 +53,12 @@ class PersilController extends Controller
         $persil = Persil::findOrFail($id);
 
         $validated = $request->validate([
-            'kode_persil' => 'required|unique:persil,kode_persil,' . $id . ',persil_id',
-            'luas_m2' => 'required|numeric',
-            'penggunaan' => 'required',
+            'kode_persil'  => 'required|unique:persil,kode_persil,' . $id . ',persil_id',
+            'luas_m2'      => 'required|numeric',
+            'penggunaan'   => 'required',
             'alamat_lahan' => 'required',
-            'rt' => 'required',
-            'rw' => 'required',
+            'rt'           => 'required',
+            'rw'           => 'required',
         ]);
 
         $persil->update($validated);
