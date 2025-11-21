@@ -19,14 +19,20 @@ class DokumenSeeder extends Seeder
         // Ambil semua ID persil
         $persilIds = Persil::pluck('persil_id')->toArray();
 
-        // Generate 1000 dokumen
         for ($i = 1; $i <= 1000; $i++) {
 
             Dokumen::create([
                 'persil_id'      => $faker->randomElement($persilIds),
                 'jenis_dokumen'  => $faker->randomElement($jenisList),
                 'nomor'          => strtoupper($faker->bothify('DOC-####')),
-                'keterangan'     => $faker->sentence(10),
+                'keterangan'     => $faker->randomElement([
+                    'Dokumen asli disimpan oleh pemilik.',
+                    'Dokumen telah diverifikasi pada kantor desa.',
+                    'Salinan dokumen tersedia di arsip kecamatan.',
+                    'Dokumen dalam kondisi baik dan dapat dibaca.',
+                    'Perlu pengecekan ulang keabsahan sertifikat.',
+                    'Dokumen telah melalui proses legalisasi.',
+                ]),
             ]);
         }
     }

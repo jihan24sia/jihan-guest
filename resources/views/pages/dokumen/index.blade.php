@@ -20,6 +20,42 @@
                 <i class="bi bi-plus-circle me-1"></i>Tambah Dokumen
             </a>
         </div>
+        <div class="mb-4">
+            <form method="GET" action="{{ route('dokumen.index') }}">
+                <div class="row">
+                    <div class="col-md-5">
+                        <select name="jenis_dokumen" class="form-select" onchange="this.form.submit()">
+                            <option value="">Semua Dokumen</option>
+
+                            @foreach (['SHM', 'IMB', 'Surat Kepemilikan', 'HGB', 'PBB', 'SPPT'] as $jenis)
+                                <option value="{{ $jenis }}"
+                                    {{ request('jenis_dokumen') == $jenis ? 'selected' : '' }}>
+                                    {{ $jenis }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" id="exampleInputIconRight"
+                                value="{{ request('search') }}" placeholder="Search" aria-label="Search">
+                            <button type="submit" class="input-group-text" id="basic-addon2">
+                                <svg class="icon icon-xxs" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        @if (request('search'))
+                            <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
+                                class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                        @endif
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <div class="row">
             @forelse ($data as $d)
@@ -28,10 +64,8 @@
                         style="background-color: #fc95c4; border-radius: 16px; overflow: hidden; transition: transform .3s ease;">
 
                         {{-- Thumbnail Dokumen --}}
-                        <img src="{{ asset('images/dokumen-sample.jpg') }}"
-                             class="card-img-top"
-                             alt="Dokumen"
-                             style="height: 180px; object-fit: cover; filter: brightness(0.85);">
+                        <img src="{{ asset('images/dokumen-sample.jpg') }}" class="card-img-top" alt="Dokumen"
+                            style="height: 180px; object-fit: cover; filter: brightness(0.85);">
 
                         <div class="card-body">
                             <h5 class="card-title fw-bold">
@@ -58,9 +92,8 @@
                                 <i class="bi bi-pencil-square"></i> Edit
                             </a>
 
-                            <form action="{{ route('dokumen.destroy', $d->dokumen_id) }}"
-                                  method="POST"
-                                  onsubmit="return confirm('Yakin hapus dokumen ini?')">
+                            <form action="{{ route('dokumen.destroy', $d->dokumen_id) }}" method="POST"
+                                onsubmit="return confirm('Yakin hapus dokumen ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger px-3">
@@ -77,6 +110,8 @@
                 </div>
             @endforelse
         </div>
-
+        <div class="mt-3">
+            {{ $data->links('pagination::bootstrap-5') }}
+        </div>
     </div>
 @endsection

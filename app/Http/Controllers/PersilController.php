@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 class PersilController extends Controller
 {
     // INDEX
-    public function index()
+    public function index(Request $request)
     {
-        $persil = Persil::all();
+        $filterableColumns = ['rt', 'rw'];
+        $searchableColumns = ['penggunaan'];
+        $persil = Persil::filter($request, $filterableColumns)
+        ->search($request, $searchableColumns)
+        ->paginate(12)->withQueryString();
+;
+
         return view('pages.persil.index', compact('persil'));
     }
 

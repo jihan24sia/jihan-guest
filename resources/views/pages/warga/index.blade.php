@@ -21,14 +21,53 @@
             </a>
         </div>
 
+        <div class="mb-4">
+            <form method="GET" action="{{ route('warga.index') }}">
+                <div class="row">
+                    <div class="col-md-5">
+                        <select name="jenis_kelamin" class="form-select" onchange="this.form.submit()">
+                            <option value="">Semua Jenis Kelamin</option>
+                            <option value="Laki-laki" {{ request('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>
+                                Laki-laki
+                            </option>
+                            <option value="Perempuan" {{ request('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
+                                Perempuan
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" id="exampleInputIconRight"
+                                value="{{ request('search') }}" placeholder="Search" aria-label="Search">
+                            <button type="submit" class="input-group-text" id="basic-addon2">
+                                <svg class="icon icon-xxs" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        @if (request('search'))
+                            <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
+                                class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                        @endif
+                    </div>
+                </div>
+            </form>
+        </div>
         <div class="row">
             @forelse ($warga as $w)
                 @php
-                    $foto =
-                        $w->jenis_kelamin == 'L'
-                            ? 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png'
-                            : 'https://cdn-icons-png.flaticon.com/512/4140/4140047.png';
+                    if ($w->jenis_kelamin === 'Laki-laki') {
+                        $foto = 'https://cdn-icons-png.flaticon.com/512/4140/4140048.png'; // laki
+                    } elseif ($w->jenis_kelamin === 'Perempuan') {
+                        $foto = 'https://cdn-icons-png.flaticon.com/512/4140/4140037.png'; // perempuan
+                    } else {
+                        $foto = 'https://cdn-icons-png.flaticon.com/512/149/149071.png'; // default icon
+                    }
                 @endphp
+
 
                 <div class="col-md-4 mb-4">
                     <div class="card shadow-lg border-0 p-3 warga-card text-white"
@@ -74,6 +113,9 @@
             @empty
                 <p class="text-center text-muted">Belum ada data warga.</p>
             @endforelse
+        </div>
+        <div class="mt-3">
+            {{ $warga->links('pagination::bootstrap-5') }}
         </div>
     </div>
 

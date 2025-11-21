@@ -32,4 +32,5 @@ class PersilSeeder extends Seeder
             ]);
         }
     }
+    
 }

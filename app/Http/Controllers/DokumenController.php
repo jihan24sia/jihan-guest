@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 
 class DokumenController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Dokumen::with('persil')->get();
+        $filterableColumns = ['jenis_dokumen'];
+        $searchableColumns = ['nomor', 'keterangan'];
+        $data = Dokumen::filter($request, $filterableColumns)->with('persil')
+        ->search($request, $searchableColumns)
+        ->paginate(12);
         return view('pages.dokumen.index', compact('data'));
     }
 
