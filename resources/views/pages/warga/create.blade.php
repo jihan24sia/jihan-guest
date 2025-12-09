@@ -39,8 +39,8 @@
             <label>Email</label>
             <input type="text" name="email" value="{{ old('email') }}" class="form-control">
         </div>
-        <button class="btn btn-success">Simpan</button>
-        <a href="{{ route('warga.index') }}" class="btn btn-secondary">Kembali</a>
+       <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="{{ route('warga.index') }}" class="btn btn-outline-secondary ms-2">Batal</a>
     </form>
 </div>
 @endsection

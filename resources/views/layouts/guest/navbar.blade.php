@@ -49,13 +49,63 @@
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('dokumen*') ? 'text-pink fw-bold' : 'text-dark' }}"
                     href="{{ url('dokumen') }}">
-                  Dokumen
+                    Dokumen
                 </a>
             </li>
+            {{-- dropdown --}}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle
+        {{ Request::is('persil/peta*') || Request::is('persil/sengketa*') ? 'text-pink fw-bold' : 'text-dark' }}"
+                    href="#" id="persilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Persil
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="persilDropdown">
+                    <li>
+                        <a class="dropdown-item" href="{{ route('persildata.peta.index') }}">Peta</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('persildata.sengketa.index') }}">Sengketa</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('penggunaan*') ? 'text-pink fw-bold' : 'text-dark' }}"
+                    href="{{ url('penggunaan') }}">
+                    Jenis Penggunaan
+                </a>
+            </li>
+            {{-- Profile + Notification --}}
+            <li class="nav-item d-flex align-items-center">
+                {{-- Profile Dropdown --}}
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-dark" id="profileSimpleDropdown"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        style="text-decoration:none; cursor:pointer;">
+
+                        <img src="{{ asset('assets/guest/images/default.jpg') }}" class="rounded-circle" width="35"
+                            height="35" style="object-fit: cover;">
+
+                        <span class="ml-2">Jihan</span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileSimpleDropdown">
+                        <form action="{{ route('auth.logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item" style="cursor:pointer;">Logout</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </li>
+
         </ul>
     </div>
 </nav>
 {{-- end navbar --}}
+
 <style>
     .whatsapp-float {
         position: fixed;

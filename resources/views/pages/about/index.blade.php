@@ -35,6 +35,6 @@
             </div>
         </div>
     </div>
-    
+
 @endsection
 <!-- about section end -->

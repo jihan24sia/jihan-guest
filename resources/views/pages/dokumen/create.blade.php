@@ -1,41 +1,61 @@
 @extends('layouts.guest.app')
+@section('title', 'Tambah Dokumen')
+
 @section('content')
 <div class="container mt-4">
     <h3>Tambah Data Dokumen</h3>
 
-    <form method="POST" action="{{ route('dokumen.store') }}">
+    {{-- FLASH MESSAGE --}}
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('dokumen.store') }}" enctype="multipart/form-data">
         @csrf
 
+        {{-- Persil --}}
         <div class="mb-3">
             <label>Persil</label>
             <select name="persil_id" class="form-select" required>
                 <option value="">-- Pilih Persil --</option>
                 @foreach ($persil as $p)
-                    <option value="{{ $p->persil_id }}"
-                        {{ old('persil_id') == $p->persil_id ? 'selected' : '' }}>
+                    <option value="{{ $p->persil_id }}" {{ old('persil_id') == $p->persil_id ? 'selected' : '' }}>
                         {{ $p->kode_persil }}
                     </option>
                 @endforeach
             </select>
         </div>
 
+        {{-- Jenis Dokumen --}}
         <div class="mb-3">
             <label>Jenis Dokumen</label>
             <input type="text" name="jenis_dokumen" value="{{ old('jenis_dokumen') }}" class="form-control" required>
         </div>
 
+        {{-- Nomor Dokumen --}}
         <div class="mb-3">
             <label>Nomor Dokumen</label>
             <input type="text" name="nomor" value="{{ old('nomor') }}" class="form-control" required>
         </div>
 
+        {{-- Keterangan --}}
         <div class="mb-3">
             <label>Keterangan</label>
             <textarea name="keterangan" class="form-control" rows="3">{{ old('keterangan') }}</textarea>
         </div>
 
-        <button class="btn btn-success">Simpan</button>
-        <a href="{{ route('dokumen.index') }}" class="btn btn-secondary">Kembali</a>
+        {{-- Upload Media --}}
+        <div class="mb-3">
+            <label>Upload Media (optional)</label>
+            <input type="file" name="media_files[]" multiple class="form-control">
+            <small class="text-muted">Anda bisa memilih lebih dari satu file.</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href="{{ route('dokumen.index') }}" class="btn btn-outline-secondary ms-2">Batal</a>
     </form>
 </div>
 @endsection

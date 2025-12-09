@@ -16,7 +16,8 @@
                 <label>Pemilik Warga</label>
                 <select name="pemilik_warga_id" class="form-select">
                     <option value="">-- Pilih Pemilik --</option>
-                    @foreach ($warga as $w)
+
+                    @foreach ($warga as $w) 
                         <option value="{{ $w->warga_id }}"
                             {{ old('pemilik_warga_id') == $w->warga_id ? 'selected' : '' }}>
                             {{ $w->nama }}
@@ -50,8 +51,8 @@
                 <input type="text" name="rw" value="{{ old('rw') }}" class="form-control">
             </div>
 
-            <button class="btn btn-success">Simpan</button>
-            <a href="{{ route('persil.index') }}" class="btn btn-secondary">Kembali</a>
+               <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="{{ route('persil.index') }}" class="btn btn-outline-secondary ms-2">Batal</a>
         </form>
     </div>
 @endsection

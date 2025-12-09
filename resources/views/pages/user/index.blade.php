@@ -35,6 +35,7 @@
                     <div class="mb-2"><i class="bi bi-person me-2 text-info"></i><strong>Nama:</strong> {{ $user->name }}</div>
                     <div class="mb-2"><i class="bi bi-envelope me-2 text-info"></i><strong>Email:</strong> {{ $user->email }}</div>
                     <div class="mb-2"><i class="bi bi-key me-2 text-info"></i><strong>Password (hash):</strong> {{ $user->password }}</div>
+                     <div class="mb-2"><i class="bi bi-key me-2 text-info"></i><strong>Role :</strong> {{ $user->role }}</div>
                     <hr class="border-light">
                     <div class="d-flex justify-content-center gap-2">
                         <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-warning px-3">
@@ -54,5 +55,8 @@
             <p class="text-center text-muted">Belum ada data user.</p>
         @endforelse
     </div>
+     <div class="mt-4 d-flex justify-content-center">
+            {{ $dataUser->links('pagination::bootstrap-5') }}
+        </div>
 </div>
 @endsection

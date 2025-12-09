@@ -43,6 +43,8 @@
     <!-- start js-->
     @include('layouts.guest.js')
     {{-- end js --}}
+    @stack('scripts')
+
 </body>
 
 </html>
